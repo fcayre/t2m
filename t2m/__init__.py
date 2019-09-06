@@ -193,7 +193,7 @@ def _send_toot(mastodon, toot):
         medias = []
         for number, media_url in enumerate(toot["medias"]):
             dl_file_path = osp.join(tmp_dir, str(number) + "."
-                                    + media_url.split(".")[-1])
+                                    + media_url.split(".")[-1]).encode('utf-8')
             urlretrieve(media_url, dl_file_path)
             medias.append(mastodon.media_post(dl_file_path)["id"])
 
@@ -317,7 +317,6 @@ def one(twitter_handle, mastodon_handle=None, number=None,
     forward any tweet.
 
     """
-
     db = _get_db()
 
     if mastodon_handle is None:
